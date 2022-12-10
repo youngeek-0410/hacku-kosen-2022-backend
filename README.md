@@ -29,6 +29,12 @@ This tool defines commands to be executed before committing. It is already defin
 
 1. Create fastapi.env with reference to fastapi.env.tmpl
 
+1. Create media directory
+
+    ```sh
+    mkdir fastapi/media
+    ```
+
 1. Build
 
     ```sh
