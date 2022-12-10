@@ -54,21 +54,21 @@ components:
     CreateProjectRequest:
       type: object
       properties:
-        name:
+        receiverName:
           type: string
           description: デジタル色紙を渡す相手の名前     
     CreateProjectResponse:
       type: object
       properties:
-        id:
+        projectId:
           type: string
           description: 作成されたプロジェクトのID
     GetProjectResponse:
       type: object
       properties:
-        id:
+        projectId:
           type: string
           description: プロジェクトのID
-        name:
+        receiverName:
           type: string
           description: デジタル色紙を渡す相手の名前
