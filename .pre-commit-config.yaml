@@ -65,6 +65,7 @@ repos:
     rev: v0.32.2
     hooks:
       - id: markdownlint-fix
+        args: [--disable, MD013]
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.7.1
     hooks:
