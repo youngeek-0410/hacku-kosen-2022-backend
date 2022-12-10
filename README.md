@@ -1,8 +1,8 @@
-# FastAPI with Django ORM and Admin
+# [サービス名]
 
 ## Overview
 
-This is a template repository for implementing the server using Django functionality for the DB area (admin, ORM) and FastAPI for the API area.
+[サービス名] is a service that provides [機能]. This service was developed for HackU Kosen 2022.
 
 ## Prerequisites
 
@@ -13,23 +13,19 @@ Dependency management for Python files is done using POETRY.
 1. <https://python-poetry.org/docs/#installation>
 1. `python -m venv venv`
 1. `source venv/bin/activate`
-2. `pip install --upgrade pip` (if needed)
-3. `poetry install`
+1. `pip install --upgrade pip` (if needed)
+1. `poetry install` (After cloning this repository)
 
 ### pre-commit (for developers)
 
 This tool defines commands to be executed before committing. It is already defined in `.pre-commit-config.yaml`, so you need to configure it in your environment. Please follow the steps below.
 
 1. <https://pre-commit.com/#installation>
-1. `pre-commit install`
+1. `pre-commit install` (After cloning this repository)
 
 ## Usage
 
 1. Clone this repository
-
-   ```sh
-    git clone https://github.com/kathmandu777/fastapi-django-template.git
-    ```
 
 1. Create fastapi.env with reference to fastapi.env.tmpl
 
@@ -69,7 +65,7 @@ This tool defines commands to be executed before committing. It is already defin
     docker-compose up
     ```
 
-## alias for frequently used commands
+## Alias for frequently used commands
 
 ```sh
 source alias.sh
