@@ -70,3 +70,7 @@ This tool defines commands to be executed before committing. It is already defin
 ```sh
 source alias.sh
 ```
+
+## OpenAPI
+
+<https://youngeek-0410.github.io/hacku-kosen-2022-backend/>
