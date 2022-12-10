@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "django-fastapi-template-app"
+name = "hacku-kosen-2022-backend-app"
 version = "0.1.0"
 description = ""
 authors = ["kathmandu777"]
