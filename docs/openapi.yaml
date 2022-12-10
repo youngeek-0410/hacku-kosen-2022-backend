@@ -18,7 +18,7 @@ paths:
       tags:
         - project
       requestBody:
-        description: Update an existent pet in the store
+        description: Post name of receiver in project
         content:
           application/json:
             schema:
@@ -38,7 +38,6 @@ paths:
       parameters:
         - name: project_id
           in: path
-          description: ID of project to return
           required: true
           schema:
             type: string
@@ -48,7 +47,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetProjectResponse'         
+                $ref: '#/components/schemas/GetProjectResponse'  
+  /api/projects/{project_id}/message:
+    post:
+      tags:
+        - message
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Post new message
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMessageRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
 components:
   schemas:
     CreateProjectRequest:
@@ -57,18 +76,41 @@ components:
         receiver_name:
           type: string
           description: デジタル色紙を渡す相手の名前     
+          example: 山田 太郎
     CreateProjectResponse:
       type: object
       properties:
         project_id:
           type: string
           description: 作成されたプロジェクトのID
+          example: a38ioje
     GetProjectResponse:
       type: object
       properties:
         project_id:
           type: string
           description: プロジェクトのID
+          example: a38ioje
         receiver_name:
           type: string
           description: デジタル色紙を渡す相手の名前
+          example: 山田 太郎
+    CreateMessageRequest:
+      properties:
+        message:
+          $ref: '#/components/schemas/Message'
+    Message:
+      type: object
+      properties:
+        text:
+          type: string
+          description: 送信するテキストメッセージ
+          example: おっつー
+        images:
+          type: string
+          description: 送信するすべての画像をzip化してさらにBase64エンコードした文字列
+          example: 全画像をzip化してさらにBASE64エンコードした文字列
+        sender_name:
+          type: string
+          description: 送信者の名前
+          example: 山田 圭祐
