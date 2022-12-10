@@ -96,106 +96,6 @@ components:
           description: デジタル色紙を渡す相手の名前
           example: 山田 太郎
     CreateMessageRequest:
-      type: object
-      properties:
-        text_message:openapi: 3.0.3
-info:
-  title: YounGeek HackU Kosen 2022 - OpenAPI 3.0
-  description: |-
-    HackU Kosen 2022 でYounGeekが実装するAPIスキーマ
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.11
-externalDocs:
-  description: our HackU Kosen 2022 Repository
-  url: https://github.com/youngeek-0410/hacku-kosen-2022
-servers:
-  - url: http://localhost:8080
-paths:
-  /api/projects:
-    post:
-      tags:
-        - project
-      requestBody:
-        description: Post name of receiver in project
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateProjectRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateProjectResponse'
-  /api/projects/{project_id}:          
-    get:
-      tags:
-        - project
-      parameters:
-        - name: project_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetProjectResponse'  
-  /api/projects/{project_id}/message:
-    post:
-      tags:
-        - message
-      parameters:
-        - name: project_id
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: Post new message
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateMessageRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful operation
-components:
-  schemas:
-    CreateProjectRequest:
-      type: object
-      properties:
-        receiver_name:
-          type: string
-          description: デジタル色紙を渡す相手の名前     
-          example: 山田 太郎
-    CreateProjectResponse:
-      type: object
-      properties:
-        project_id:
-          type: string
-          description: 作成されたプロジェクトのID
-          example: a38ioje
-    GetProjectResponse:
-      type: object
-      properties:
-        project_id:
-          type: string
-          description: プロジェクトのID
-          example: a38ioje
-        receiver_name:
-          type: string
-          description: デジタル色紙を渡す相手の名前
-          example: 山田 太郎
-    CreateMessageRequest:
       properties:
         message:
           $ref: '#/components/schemas/Message'
@@ -207,17 +107,6 @@ components:
           description: 送信するテキストメッセージ
           example: おっつー
         images:
-          type: string
-          description: 送信するすべての画像をzip化してさらにBase64エンコードした文字列
-          example: 全画像をzip化してさらにBASE64エンコードした文字列
-        sender_name:
-          type: string
-          description: 送信者の名前
-          example: 山田 圭祐
-          type: string
-          description: 送信するテキストメッセージ
-          example: おっつー
-        image_message:
           type: string
           description: 送信するすべての画像をzip化してさらにBase64エンコードした文字列
           example: 全画像をzip化してさらにBASE64エンコードした文字列
