@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -6,7 +8,7 @@ from django.contrib.auth.models import (
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .base import BaseModelMixin
+from .base import TimestampModelMixin
 
 
 class UserManager(BaseUserManager):
@@ -47,8 +49,10 @@ class UserManager(BaseUserManager):
         return self._create_user(username, email, password, **extra_fields)
 
 
-class User(AbstractBaseUser, PermissionsMixin, BaseModelMixin):
+class User(AbstractBaseUser, PermissionsMixin, TimestampModelMixin):
     objects = UserManager()
+
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     email = models.EmailField(_("email address"), unique=True)
 

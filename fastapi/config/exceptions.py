@@ -27,3 +27,10 @@ class InvalidCredentialsException(HTTPException):
         self.status_code = status.HTTP_401_UNAUTHORIZED
         self.message = message
         super().__init__(self.status_code, self.message)
+
+
+class NotFoundException(HTTPException):
+    def __init__(self, message: str = "Not found."):
+        self.status_code = status.HTTP_404_NOT_FOUND
+        self.message = message
+        super().__init__(self.status_code, self.message)
