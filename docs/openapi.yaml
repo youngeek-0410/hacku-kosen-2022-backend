@@ -68,6 +68,28 @@ paths:
       responses:
         '200':
           description: Successful operation
+          
+  /api/projects/{project_id}/spotify_music:
+    post:
+      description: 指定のSpotifyMusicを指定のProjectに登録する
+      tags:
+        - spotify_music
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Registered Spotify Music data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterSpotifyMusicReqest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
 components:
   schemas:
     CreateProjectRequest:
@@ -99,6 +121,48 @@ components:
       properties:
         message:
           $ref: '#/components/schemas/Message'
+    RegisterSpotifyMusicReqest:
+      $ref: "#/components/schemas/SpotifyMusic"
+    SpotifyMusic:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 楽曲名
+          example: ジョジョ~その血の運命~
+        external_url:
+          type: string
+          description: SpotifyページへのURL
+          example: https://spotify.com/...
+        preview_url:
+          type: string
+          description: サンプル30秒の音声データのURL
+          example: https://spotify.com/...
+        artist:
+          type: object
+          description: アーティスト情報
+          properties:
+            name:
+              type: string
+              description: アーティスト名
+              example: 富永TOMMY弘明
+            external_url:
+              type: string
+              description: SpotifyページへのURL
+              example: https://spotify.com/...
+        album:
+          type: object
+          description: アルバム情報
+          properties:
+            name:
+              type: string
+              description: アルバム名
+              example: ジョジョ~その血の運命~
+            image_url:
+              type: string
+              description: カバー画像のURL
+              example: https://spotify.com/...
+        
     Message:
       type: object
       properties:
