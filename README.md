@@ -29,46 +29,35 @@ This tool defines commands to be executed before committing. It is already defin
 
 1. Create fastapi.env with reference to fastapi.env.tmpl
 
-1. Create media directory
+1. Start Server
 
     ```sh
-    mkdir fastapi/media
+    docker-compose up
     ```
 
-1. Build
-
-    ```sh
-    docker-compose build
-    ```
-
-1. Dependency install
+### Additional commands
+- Dependency install
 
     ```sh
     docker-compose run --rm fastapi poetry install
     ```
 
-1. Setup Static Files
+- Setup Static Files
 
     ```sh
     docker-compose run --rm fastapi poetry run python manage.py collectstatic --noinput
     ```
 
-1. Migrate
+- Migrate
 
     ```sh
     docker-compose run --rm fastapi poetry run python manage.py migrate
     ```
 
-1. Create Super User for Admin Page
+- Create Super User for Admin Page
 
     ```sh
     docker-compose run --rm fastapi poetry run python manage.py createsuperuser
-    ```
-
-1. Start Server
-
-    ```sh
-    docker-compose up
     ```
 
 ## Alias for frequently used commands
@@ -80,3 +69,25 @@ source alias.sh
 ## OpenAPI
 
 <https://youngeek-0410.github.io/hacku-kosen-2022-backend/>
+
+
+## Deploy to Cloud Run from Local
+1. Build
+    ```sh
+    IMAGE=[イメージ名] docker-compose -f docker-compose.prod.yaml build
+    ```
+
+1. Push to GCR
+    ```sh
+    IMAGE=[イメージ名] docker-compose -f docker-compose.prod.yaml push
+    ```
+
+1. Deploy to Cloud Run
+    ```sh
+    gcloud run deploy [サービス名(CloudRun)] --image [イメージ名] --project [プロジェクト名] --port 8000 --region asia-northeast1 --platform managed
+    ```
+
+1. Set Environment Variables
+    ```sh
+    gcloud run services update [サービス名(CloudRun)] --set-env-vars [key1]=[value1],[key2]=[value2]
+    ```
