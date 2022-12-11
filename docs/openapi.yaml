@@ -41,6 +41,18 @@ paths:
           required: true
           schema:
             type: string
+        - name: text_message_limit
+          description: プロジェクト詳細画面で取得するテキストメッセージの数
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: image_message_limit
+          description: プロジェクト詳細画面で取得する画像メッセージの数
+          in: query
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: successful operation
@@ -90,6 +102,41 @@ paths:
       responses:
         '200':
           description: Successful operation
+          
+  /api/projects/{project_id}/text_messages:
+    get:
+      tags:
+        - message
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTextMessageResponse'
+  /api/projects/{project_id}/image_messages:
+    get:
+      tags:
+        - message
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetImageMessageResponse'  
 components:
   schemas:
     CreateProjectRequest:
@@ -117,10 +164,42 @@ components:
           type: string
           description: デジタル色紙を渡す相手の名前
           example: 山田 太郎
+        text_messages:
+          type: object
+          properties:
+            count:
+              type: integer
+              description: メッセージ件数
+              example: 1
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    description: 詳細画面で表示されているテキストメッセージの本文
+                    example: おっつー
+                  sender:
+                    type: string
+                    description: 詳細画面で表示されているテキストメッセージの送信者
+                    example: 山田 圭祐
+            
     CreateMessageRequest:
+      type: object
       properties:
-        message:
-          $ref: '#/components/schemas/Message'
+        text:
+          type: string
+          description: 送信するテキストメッセージ
+          example: おっつー
+        images:
+          type: string
+          description: 送信するすべての画像をzip化してさらにBase64エンコードした文字列
+          example: 全画像をzip化してさらにBASE64エンコードした文字列
+        sender_name:
+          type: string
+          description: 送信者の名前
+          example: 山田 圭祐
     RegisterSpotifyMusicReqest:
       $ref: "#/components/schemas/SpotifyMusic"
     SpotifyMusic:
@@ -162,19 +241,25 @@ components:
               type: string
               description: カバー画像のURL
               example: https://spotify.com/...
-        
-    Message:
+    GetTextMessageResponse:
       type: object
       properties:
-        text:
+        project_id:
           type: string
-          description: 送信するテキストメッセージ
-          example: おっつー
-        images:
+          description: プロジェクトのID
+          example: a38ioje
+        receiver_name:
           type: string
-          description: 送信するすべての画像をzip化してさらにBase64エンコードした文字列
-          example: 全画像をzip化してさらにBASE64エンコードした文字列
-        sender_name:
+          description: デジタル色紙を渡す相手の名前
+          example: 山田 太郎
+    GetImageMessageResponse:
+      type: object
+      properties:
+        project_id:
           type: string
-          description: 送信者の名前
-          example: 山田 圭祐
+          description: プロジェクトのID
+          example: a38ioje
+        receiver_name:
+          type: string
+          description: デジタル色紙を渡す相手の名前
+          example: 山田 太郎
