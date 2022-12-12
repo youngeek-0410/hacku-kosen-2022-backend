@@ -1,6 +1,6 @@
-from app.api import ProjectAPI
-from app.models import Project
-from app.schemas import CreateProjectSchema, ReadProjectSchema
+from app.api import ProjectAPI, SpotifyMusicAPI
+from app.models import Project, SpotifyMusic
+from app.schemas import CreateProjectSchema, ReadProjectSchema, SpotifyMusicSchema
 
 from fastapi import APIRouter, Request
 
@@ -18,3 +18,13 @@ async def get(request: Request, project_id: str) -> Project:
 )
 async def create(request: Request, schema: CreateProjectSchema) -> Project:
     return await ProjectAPI.create(request, schema)
+
+
+@project_router.post(
+    "/{project_id}/spotify_music",
+    response_model=SpotifyMusicSchema,
+)
+async def create_spotify_music(
+    request: Request, project_id: str, schema: SpotifyMusicSchema
+) -> SpotifyMusic:
+    return await SpotifyMusicAPI.create(request, project_id, schema)

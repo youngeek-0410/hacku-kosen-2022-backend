@@ -1,6 +1,7 @@
 from django.db import models
 
 from .base import TimestampModelMixin
+from .spotify import SpotifyMusic
 
 
 class Project(TimestampModelMixin):
@@ -13,3 +14,6 @@ class Project(TimestampModelMixin):
 
     def __str__(self) -> str:
         return f"Project for {self.receiver_name} [{self.id}]"
+
+    async def get_spotify_music(self) -> SpotifyMusic | None:
+        return await SpotifyMusic.objects.filter(project=self).afirst()
