@@ -23,6 +23,7 @@ class ProjectAPI:
         project = await Project.objects.filter(id=id).afirst()
         if not project:
             raise NotFoundException("Project not found.")
+        setattr(project, "spotify_music", await project.get_spotify_music())  # FIXME
         return project
 
     @classmethod
