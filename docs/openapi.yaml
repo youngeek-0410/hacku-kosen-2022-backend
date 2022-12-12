@@ -42,13 +42,13 @@ paths:
           schema:
             type: string
         - name: text_message_limit
-          description: プロジェクト詳細画面で取得するテキストメッセージの数
+          description: 取得するテキストメッセージの数
           in: query
           required: true
           schema:
             type: integer
         - name: image_message_limit
-          description: プロジェクト詳細画面で取得する画像メッセージの数
+          description: 取得する画像メッセージの数
           in: query
           required: true
           schema:
@@ -111,7 +111,7 @@ paths:
           required: true
           schema:
             type: string
-        - name: text_message_limit
+        - name: limit
           in: query
           schema:
             type: integer
@@ -122,7 +122,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetTextMessageResponse'
+                $ref: '#/components/schemas/GetTextMessagesResponse'
   /api/projects/{project_id}/image_messages:
     get:
       tags:
@@ -133,7 +133,7 @@ paths:
           required: true
           schema:
             type: string
-        - name: image_message_limit
+        - name: limit
           in: query
           schema:
             type: integer
@@ -144,7 +144,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetImageMessageResponse'  
+                $ref: '#/components/schemas/GetImageMessagesResponse'  
 components:
   schemas:
     CreateProjectRequest:
@@ -188,11 +188,11 @@ components:
                 properties:
                   text:
                     type: string
-                    description: 詳細画面で表示されているテキストメッセージの本文
+                    description: メッセージ本文
                     example: おっつー
-                  sender:
+                  sender_name:
                     type: string
-                    description: 詳細画面で表示されているテキストメッセージの送信者
+                    description: 送信者
                     example: 山田 圭祐
         image_messages:
           type: object
@@ -201,13 +201,19 @@ components:
               type: integer
               description: メッセージ件数
               example: 1
-            url:
+            items:
               type: array
               items:
-                type: string
-                description: 詳細画面で表示されているすべての画像URL
-                example: https://
-            
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: 画像URL
+                    example: https://
+                  sender_name:
+                    type: string
+                    description: 送信者
+                    example: 山田 圭祐
     CreateMessageRequest:
       type: object
       properties:
@@ -268,7 +274,7 @@ components:
               type: string
               description: カバー画像のURL
               example: https://spotify.com/...
-    GetTextMessageResponse:
+    GetTextMessagesResponse:
       type: object
       properties:
         count:
@@ -284,20 +290,26 @@ components:
                 type: string
                 description: テキストメッセージの本文
                 example: おつかれ
-              sender:
+              sender_name:
                 type: string
                 description: テキストメッセージ送信者
                 example: 山田 花子
-    GetImageMessageResponse:
+    GetImageMessagesResponse:
       type: object
       properties:
         count:
           type: integer
           description: すべての画像の件数
           example: 15
-        url:
+        items:
           type: array
           items:
-            type: string
-            description: すべての画像のURL
-            example: https://
+            type: object
+            properties:
+              url:
+                type: string
+                description: 画像のURL
+                example: https://
+              sender_name:
+                type: string
+                description: 送信者
