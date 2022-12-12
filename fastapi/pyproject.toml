@@ -19,6 +19,8 @@ Pillow = "^9.1.1"
 pytz = "^2022.1"
 mysqlclient = "^2.1.1"
 django-psdb-engine = "^1.0.6"
+django-storages = "^1.13.1"
+boto3 = "^1.26.27"
 
 [tool.poetry.group.dev.dependencies]
 black = {version = "^22.10.0", allow-prereleases = true}

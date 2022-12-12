@@ -23,3 +23,21 @@ DATABASES = {
         },
     }
 }
+
+#############################
+# AWS S3
+#############################
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", default="")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", default="")
+AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", default="")
+
+# storage
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", default="")
+
+# media
+DEFAULT_FILE_STORAGE = "config.backends.MediaStorage"
+
+# static
+AWS_LOCATION = "static"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/{AWS_LOCATION}/"
