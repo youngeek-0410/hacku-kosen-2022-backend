@@ -164,6 +164,8 @@ components:
           type: string
           description: デジタル色紙を渡す相手の名前
           example: 山田 太郎
+        spotify_music:
+          $ref: "#/components/schemas/SpotifyMusic"
         text_messages:
           type: object
           properties:
@@ -184,6 +186,19 @@ components:
                     type: string
                     description: 詳細画面で表示されているテキストメッセージの送信者
                     example: 山田 圭祐
+        image_messages:
+          type: object
+          properties:
+            count:
+              type: integer
+              description: メッセージ件数
+              example: 1
+            url:
+              type: array
+              items:
+                type: string
+                description: 詳細画面で表示されているすべての画像URL
+                example: https://
             
     CreateMessageRequest:
       type: object
@@ -205,6 +220,10 @@ components:
     SpotifyMusic:
       type: object
       properties:
+        uri:
+          type: string
+          description: 楽曲を識別するURI
+          example: "uri:ljadjoihjgsadih"
         name:
           type: string
           description: 楽曲名
