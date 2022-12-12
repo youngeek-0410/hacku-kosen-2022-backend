@@ -80,7 +80,6 @@ paths:
       responses:
         '200':
           description: Successful operation
-          
   /api/projects/{project_id}/spotify_music:
     post:
       description: 指定のSpotifyMusicを指定のProjectに登録する
@@ -102,7 +101,6 @@ paths:
       responses:
         '200':
           description: Successful operation
-          
   /api/projects/{project_id}/text_messages:
     get:
       tags:
@@ -113,6 +111,11 @@ paths:
           required: true
           schema:
             type: string
+        - name: text_message_limit
+          in: query
+          schema:
+            type: integer
+            default: 100
       responses:
         '200':
           description: successful operation
@@ -130,6 +133,11 @@ paths:
           required: true
           schema:
             type: string
+        - name: image_message_limit
+          in: query
+          schema:
+            type: integer
+            default: 100
       responses:
         '200':
           description: successful operation
@@ -263,22 +271,33 @@ components:
     GetTextMessageResponse:
       type: object
       properties:
-        project_id:
-          type: string
-          description: プロジェクトのID
-          example: a38ioje
-        receiver_name:
-          type: string
-          description: デジタル色紙を渡す相手の名前
-          example: 山田 太郎
+        count:
+          type: integer
+          description: すべてのテキストの件数
+          example: 10
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              text: 
+                type: string
+                description: テキストメッセージの本文
+                example: おつかれ
+              sender:
+                type: string
+                description: テキストメッセージ送信者
+                example: 山田 花子
     GetImageMessageResponse:
       type: object
       properties:
-        project_id:
-          type: string
-          description: プロジェクトのID
-          example: a38ioje
-        receiver_name:
-          type: string
-          description: デジタル色紙を渡す相手の名前
-          example: 山田 太郎
+        count:
+          type: integer
+          description: すべての画像の件数
+          example: 15
+        url:
+          type: array
+          items:
+            type: string
+            description: すべての画像のURL
+            example: https://
