@@ -9,25 +9,27 @@ services:
       - 8001:8001
     environment:
       DB_NAME: hacku-kosen-2022-backend
+      DB_ENGINE: django.db.backends.mysql
       DB_USER: fastapi
-      DB_PASSWORD: fastapi
-      DB_HOST: postgres
-      DB_PORT: 5432
+      DB_PASSWORD: password
+      DB_HOST: mysql
+      DB_PORT: 3306
+      ENV_STATE: local
     env_file:
       - fastapi/fastapi.env
     links:
-      - postgres
-    command: ./scripts/runlocalserver.sh
-  postgres:
-    image: postgres:12
+      - mysql
+  mysql:
+    image: mysql:5.7
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     environment:
-      POSTGRES_USER: fastapi
-      POSTGRES_PASSWORD: fastapi
-      POSTGRES_DB: hacku-kosen-2022-backend
+      MYSQL_DATABASE: hacku-kosen-2022-backend
+      MYSQL_USER: fastapi
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
     ports:
-      - 5433:5432
+      - 3307:3306
 
 volumes:
-  postgres_data:
+  mysql_data:
