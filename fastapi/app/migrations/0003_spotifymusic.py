@@ -38,6 +38,7 @@ class Migration(migrations.Migration):
                 ("music_name", models.CharField(max_length=256)),
                 ("music_external_url", models.URLField(max_length=256)),
                 ("music_preview_url", models.URLField(max_length=256)),
+                ("music_uri", models.CharField(max_length=256)),
                 ("artist_name", models.CharField(max_length=256)),
                 ("artist_external_url", models.URLField(max_length=256)),
                 ("album_name", models.CharField(max_length=256)),

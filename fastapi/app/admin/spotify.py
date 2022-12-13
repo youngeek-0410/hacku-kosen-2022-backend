@@ -10,6 +10,7 @@ class SpotifyMusicAdmin(admin.ModelAdmin):
         "project",
         "music_external_url",
         "music_preview_url",
+        "music_uri",
         "artist_name",
         "artist_external_url",
         "album_name",

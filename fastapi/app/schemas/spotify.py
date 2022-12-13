@@ -22,6 +22,7 @@ class SpotifyMusicSchema(BaseModel):
     name: str
     external_url: str
     preview_url: str
+    uri: str
     artist: SpotifyArtistSchema
     album: SpotifyAlbumSchema
 
@@ -50,4 +51,5 @@ class SpotifyMusicSchema(BaseModel):
         setattr(obj, "name", obj.music_name)
         setattr(obj, "external_url", obj.music_external_url)
         setattr(obj, "preview_url", obj.music_preview_url)
+        setattr(obj, "uri", obj.music_uri)
         return super().from_orm(obj)
