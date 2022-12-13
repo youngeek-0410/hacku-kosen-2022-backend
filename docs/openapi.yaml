@@ -230,7 +230,7 @@ components:
           description: 閲覧面ページの一番上に表示する文章。他のメッセージよりも大きく表示される。
           maxLength: 36
           example: "3年間お疲れ様でした！"
-        top_image_url:
+        top_image:
          type: object
          description: 閲覧面ページの一番上に表示する画像。他の画像とは独立して表示される。
          properties:
