@@ -13,9 +13,9 @@ logger = getLogger(__name__)
 
 class SpotifyMusicAPI:
     @classmethod
-    async def create(
+    async def put(
         cls, request: Request, project_id: str, schema: SpotifyMusicSchema
-    ) -> SpotifyMusic:
+    ) -> None:
         project = await Project.objects.filter(id=project_id).afirst()
         if not project:
             raise NotFoundException("Project not found")
@@ -33,4 +33,3 @@ class SpotifyMusicAPI:
                 album_image_url=schema.album.image_url,
             ),
         )
-        return spotify_music

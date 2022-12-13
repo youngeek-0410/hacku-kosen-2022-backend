@@ -1,6 +1,7 @@
 from django.db import models
 
 from .base import TimestampModelMixin
+from .message import Message, MessageImage
 from .spotify import SpotifyMusic
 
 
@@ -17,3 +18,19 @@ class Project(TimestampModelMixin):
 
     async def get_spotify_music(self) -> SpotifyMusic | None:
         return await SpotifyMusic.objects.filter(project=self).afirst()
+
+    async def get_text_messages(self, limit: int) -> list["Message"]:
+        return [
+            obj
+            async for obj in Message.objects.filter(project=self)
+            .order_by("-created_at")
+            .all()
+        ][:limit]
+
+    async def get_image_messages(self, limit: int) -> list["MessageImage"]:
+        return [
+            obj
+            async for obj in MessageImage.objects.filter(message__project=self)
+            .order_by("-created_at")
+            .all()
+        ][:limit]

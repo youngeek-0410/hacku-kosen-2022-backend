@@ -135,3 +135,5 @@ def tokyo_time(*args):  # type: ignore
 
 logging.Formatter.converter = tokyo_time
 logging.config.dictConfig(LOGGING)
+
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"

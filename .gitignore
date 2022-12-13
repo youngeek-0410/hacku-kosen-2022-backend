@@ -113,7 +113,7 @@ $RECYCLE.BIN/
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django
 
 ### Django ###
-*.log
+*.log*
 *.pot
 *.pyc
 __pycache__/
