@@ -231,9 +231,12 @@ components:
           maxLength: 36
           example: "3年間お疲れ様でした！"
         top_image_url:
-         type: string
+         type: object
          description: 閲覧面ページの一番上に表示する画像。他の画像とは独立して表示される。
-         example: "https://example.com/image"
+         properties:
+           url:
+             type: string
+             example: "https://example.com/image"
         text_messages:
           type: object
           properties:
