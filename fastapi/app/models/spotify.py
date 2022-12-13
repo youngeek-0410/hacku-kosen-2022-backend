@@ -8,7 +8,9 @@ class SpotifyMusic(TimestampModelMixin):
     MAX_LENGTH_URI = 256
     MAX_LENGTH_NAME = 256
 
-    project = models.ForeignKey("Project", on_delete=models.CASCADE)
+    project = models.ForeignKey(
+        "Project", on_delete=models.CASCADE
+    )  # FIXME: one or zero constraint
 
     music_name = models.CharField(max_length=MAX_LENGTH_NAME)
     music_external_url = models.URLField(max_length=MAX_LENGTH_URL)
