@@ -219,6 +219,14 @@ components:
                     type: string
                     description: 画像URL
                     example: https://
+                  width:
+                    type: integer
+                    description: 画像の幅(px)
+                    example: 1200
+                  height:
+                    type: integer
+                    description: 画像の高さ(px)
+                    example: 600
                   sender_name:
                     type: string
                     description: 送信者
@@ -324,6 +332,14 @@ components:
                 type: string
                 description: 画像のURL
                 example: https://
+              width:
+                type: integer
+                description: 画像の幅(px)
+                example: 1200
+              height:
+                type: integer
+                description: 画像の高さ(px)
+                example: 600
               sender_name:
                 type: string
                 description: 送信者
