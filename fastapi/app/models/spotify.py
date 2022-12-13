@@ -5,6 +5,7 @@ from .base import TimestampModelMixin
 
 class SpotifyMusic(TimestampModelMixin):
     MAX_LENGTH_URL = 256
+    MAX_LENGTH_URI = 256
     MAX_LENGTH_NAME = 256
 
     project = models.ForeignKey("Project", on_delete=models.CASCADE)
@@ -12,6 +13,7 @@ class SpotifyMusic(TimestampModelMixin):
     music_name = models.CharField(max_length=MAX_LENGTH_NAME)
     music_external_url = models.URLField(max_length=MAX_LENGTH_URL)
     music_preview_url = models.URLField(max_length=MAX_LENGTH_URL)
+    music_uri = models.CharField(max_length=MAX_LENGTH_URI)
 
     artist_name = models.CharField(max_length=MAX_LENGTH_NAME)
     artist_external_url = models.URLField(max_length=MAX_LENGTH_URL)

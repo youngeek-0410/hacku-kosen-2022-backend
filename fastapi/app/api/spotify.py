@@ -26,6 +26,7 @@ class SpotifyMusicAPI:
                 music_name=schema.name,
                 music_external_url=schema.external_url,
                 music_preview_url=schema.preview_url,
+                music_uri=schema.uri,
                 artist_name=schema.artist.name,
                 artist_external_url=schema.artist.external_url,
                 album_name=schema.album.name,
