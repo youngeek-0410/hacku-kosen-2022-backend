@@ -149,13 +149,18 @@ components:
   schemas:
     CreateProjectRequest:
       type: object
+      required: 
+        - receiver_name
       properties:
         receiver_name:
           type: string
-          description: デジタル色紙を渡す相手の名前     
+          description: デジタル色紙を渡す相手の名前
+          maxLength: 36
           example: 山田 太郎
     CreateProjectResponse:
       type: object
+      required: 
+        - project_id
       properties:
         project_id:
           type: string
@@ -163,6 +168,9 @@ components:
           example: a38ioje
     GetProjectResponse:
       type: object
+      required:
+        - project_id
+        - receiver_name
       properties:
         project_id:
           type: string
@@ -171,6 +179,7 @@ components:
         receiver_name:
           type: string
           description: デジタル色紙を渡す相手の名前
+          maxLength: 36
           example: 山田 太郎
         spotify_music:
           $ref: "#/components/schemas/SpotifyMusic"
@@ -216,10 +225,14 @@ components:
                     example: 山田 圭祐
     CreateMessageRequest:
       type: object
+      required: 
+        - text
+        - sender_name
       properties:
         text:
           type: string
           description: 送信するテキストメッセージ
+          maxLength: 256
           example: おっつー
         images:
           type: string
@@ -228,6 +241,7 @@ components:
         sender_name:
           type: string
           description: 送信者の名前
+          maxLength: 36
           example: 山田 圭祐
     RegisterSpotifyMusicReqest:
       $ref: "#/components/schemas/SpotifyMusic"
