@@ -81,7 +81,7 @@ paths:
         '200':
           description: Successful operation
   /api/projects/{project_id}/spotify_music:
-    post:
+    put:
       description: 指定のSpotifyMusicを指定のProjectに登録する
       tags:
         - spotify_music
@@ -97,6 +97,48 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RegisterSpotifyMusicReqest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+  /api/projects/{project_id}/top_text:
+    put:
+      description: 指定のトップテキストをProjectに登録する
+      tags:
+        - project
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Registered Spotify Music data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterTopTextRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+  /api/projects/{project_id}/top_image:
+    put:
+      description: 指定のトップ画像をProjectに登録する
+      tags:
+        - project
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Registered Spotify Music data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterTopImageRequest'
         required: true
       responses:
         '200':
@@ -183,6 +225,15 @@ components:
           example: 山田 太郎
         spotify_music:
           $ref: "#/components/schemas/SpotifyMusic"
+        top_text:
+          type: string
+          description: 閲覧面ページの一番上に表示する文章。他のメッセージよりも大きく表示される。
+          maxLength: 36
+          example: "3年間お疲れ様でした！"
+        top_image_url:
+         type: string
+         description: 閲覧面ページの一番上に表示する画像。他の画像とは独立して表示される。
+         example: "https://example.com/image"
         text_messages:
           type: object
           properties:
@@ -343,3 +394,18 @@ components:
               sender_name:
                 type: string
                 description: 送信者
+    RegisterTopTextRequest:
+      type: object
+      properties:
+        top_text:
+          type: string
+          description: 閲覧面ページの一番上に表示する文章。他のメッセージよりも大きく表示される。
+          maxLength: 36
+          example: "3年間お疲れ様でした！"
+    RegisterTopImageRequest:
+      type: object
+      properties:
+        top_image_url:
+         type: string
+         description: 閲覧面ページの一番上に表示する画像。他の画像とは独立して表示される。
+         example: "https://example.com/image"
