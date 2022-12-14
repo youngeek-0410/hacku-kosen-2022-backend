@@ -4,7 +4,10 @@ from .base import *  # noqa
 
 DEBUG = False
 
-ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
+ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
+
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
