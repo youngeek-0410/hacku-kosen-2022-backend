@@ -3,8 +3,8 @@ from app.models import Project
 from app.schemas import (
     CreateProjectSchema,
     ReadProjectSchema,
-    ProjectTopTextSchema,
-    ProjectTopImageSchema,
+    CreateProjectTopTextSchema,
+    CreateProjectTopImageSchema,
 )
 
 from fastapi import APIRouter, Request, Response
@@ -28,7 +28,7 @@ async def get(
 async def create_top_text(
         request: Request,
         project_id: str,
-        schema: ProjectTopTextSchema,
+        schema: CreateProjectTopTextSchema,
 ) -> None:
     await ProjectAPI.put_top_text(request, project_id, schema)
 
@@ -37,7 +37,7 @@ async def create_top_text(
 async def create_top_image(
         request: Request,
         project_id: str,
-        schema: ProjectTopImageSchema,
+        schema: CreateProjectTopImageSchema,
 ) -> None:
     await ProjectAPI.put_top_image(request, project_id, schema)
 

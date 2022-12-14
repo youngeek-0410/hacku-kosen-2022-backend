@@ -2,7 +2,11 @@ import random
 from logging import getLogger
 
 from app.models import Project
-from app.schemas import CreateProjectSchema, ProjectTopTextSchema, ProjectTopImageSchema
+from app.schemas import (
+    CreateProjectSchema,
+    CreateProjectTopTextSchema,
+    CreateProjectTopImageSchema,
+)
 from asgiref.sync import sync_to_async
 from config.exceptions import NotFoundException
 
@@ -49,7 +53,7 @@ class ProjectAPI:
             cls,
             request: Request,
             id: str,
-            schema: ProjectTopTextSchema,
+            schema: CreateProjectTopTextSchema,
     ) -> None:
         project = await Project.objects.filter(id=id).afirst()
         if not project:
@@ -63,13 +67,13 @@ class ProjectAPI:
             cls,
             request: Request,
             id: str,
-            schema: ProjectTopImageSchema,
+            schema: CreateProjectTopImageSchema,
     ) -> None:
         project = await Project.objects.filter(id=id).afirst()
         if not project:
             raise NotFoundException("Project not found.")
 
-        project.top_image_url = schema.url
+        project.top_image_url = schema.top_image_url
         await sync_to_async(project.save)()
 
     @classmethod

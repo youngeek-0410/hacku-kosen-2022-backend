@@ -7,8 +7,12 @@ from .message import ImageMessagesSchema, TextMessagesSchema
 from .spotify import SpotifyMusicSchema
 
 
-class ProjectTopTextSchema(BaseModel):
+class CreateProjectTopTextSchema(BaseModel):
     top_text: str
+
+
+class CreateProjectTopImageSchema(BaseModel):
+    top_image_url: str
 
 
 class ProjectTopImageSchema(BaseModel):
