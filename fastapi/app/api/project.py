@@ -2,7 +2,11 @@ import random
 from logging import getLogger
 
 from app.models import Project
-from app.schemas import CreateProjectSchema
+from app.schemas import (
+    CreateProjectSchema,
+    CreateProjectTopTextSchema,
+    CreateProjectTopImageSchema,
+)
 from asgiref.sync import sync_to_async
 from config.exceptions import NotFoundException
 
@@ -43,6 +47,34 @@ class ProjectAPI:
             await project.get_image_messages(image_messages_limit),
         )
         return project
+
+    @classmethod
+    async def put_top_text(
+            cls,
+            request: Request,
+            id: str,
+            schema: CreateProjectTopTextSchema,
+    ) -> None:
+        project = await Project.objects.filter(id=id).afirst()
+        if not project:
+            raise NotFoundException("Project not found.")
+
+        project.top_text = schema.top_text
+        await sync_to_async(project.save)()
+
+    @classmethod
+    async def put_top_image(
+            cls,
+            request: Request,
+            id: str,
+            schema: CreateProjectTopImageSchema,
+    ) -> None:
+        project = await Project.objects.filter(id=id).afirst()
+        if not project:
+            raise NotFoundException("Project not found.")
+
+        project.top_image_url = schema.top_image_url
+        await sync_to_async(project.save)()
 
     @classmethod
     async def create(cls, request: Request, schema: CreateProjectSchema) -> Project:

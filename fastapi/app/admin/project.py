@@ -8,6 +8,8 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "receiver_name",
+        "top_text",
+        "top_image_url",
         "created_at",
         "updated_at",
     )

@@ -1,8 +1,13 @@
 from app.api import ProjectAPI
 from app.models import Project
-from app.schemas import CreateProjectSchema, ReadProjectSchema
+from app.schemas import (
+    CreateProjectSchema,
+    ReadProjectSchema,
+    CreateProjectTopTextSchema,
+    CreateProjectTopImageSchema,
+)
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Response
 
 project_router = APIRouter()
 
@@ -17,6 +22,24 @@ async def get(
     return await ProjectAPI.get(
         request, project_id, text_message_limit, image_messages_limit
     )
+
+
+@project_router.put("/{project_id}/top_text", response_class=Response)
+async def create_top_text(
+        request: Request,
+        project_id: str,
+        schema: CreateProjectTopTextSchema,
+) -> None:
+    await ProjectAPI.put_top_text(request, project_id, schema)
+
+
+@project_router.put("/{project_id}/top_image", response_class=Response)
+async def create_top_image(
+        request: Request,
+        project_id: str,
+        schema: CreateProjectTopImageSchema,
+) -> None:
+    await ProjectAPI.put_top_image(request, project_id, schema)
 
 
 @project_router.post(

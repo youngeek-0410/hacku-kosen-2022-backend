@@ -13,6 +13,12 @@ class Project(TimestampModelMixin):
     MAX_LENGTH_RECEIVER_NAME = 32
     receiver_name = models.CharField(max_length=MAX_LENGTH_RECEIVER_NAME)
 
+    MAX_LENGTH_TOP_TEXT = 32
+    top_text = models.CharField(default="", max_length=MAX_LENGTH_TOP_TEXT)
+
+    MAX_LENGTH_URL = 256
+    top_image_url = models.URLField(default="", max_length=MAX_LENGTH_URL)
+
     def __str__(self) -> str:
         return f"Project for {self.receiver_name} [{self.id}]"
 
