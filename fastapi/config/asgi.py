@@ -33,6 +33,7 @@ FastAPI settings
 """
 from app.routers import api_router, health_router
 from django.conf import settings
+from fastapi_key_auth import AuthorizerMiddleware
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -44,8 +45,14 @@ fastapi_app = FastAPI(
     version="0.1.0",
 )
 
+
 # CORS
 if not settings.DEBUG:
+    fastapi_app.add_middleware(
+        AuthorizerMiddleware,
+        public_paths=["^/docs*", "/openapi.json", "^/redoc*"],
+        key_pattern="API_KEY_",
+    )
     fastapi_app.add_middleware(
         CORSMiddleware,
         allow_origins=os.environ["ALLOWED_ORIGINS"].split(","),
