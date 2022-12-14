@@ -368,4 +368,4 @@ cython_debug/
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django
 
-cloud-run-set-env-vars.sh
+.env.yaml
