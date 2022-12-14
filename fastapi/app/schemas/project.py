@@ -15,7 +15,7 @@ class CreateProjectTopImageSchema(BaseModel):
     top_image_url: str
 
 
-class ProjectTopImageSchema(BaseModel):
+class ReadProjectTopImageSchema(BaseModel):
     url: str
 
 
@@ -26,7 +26,7 @@ class ReadProjectSchema(BaseModel):
     spotify_music: SpotifyMusicSchema | None = None
 
     top_text: str
-    top_image: ProjectTopImageSchema | None = None
+    top_image: ReadProjectTopImageSchema | None = None
 
     text_messages: TextMessagesSchema | None = None
     image_messages: ImageMessagesSchema | None = None
@@ -43,7 +43,7 @@ class ReadProjectSchema(BaseModel):
         setattr(
             obj,
             "top_image",
-            ProjectTopImageSchema(url=obj.top_image_url),
+            ReadProjectTopImageSchema(url=obj.top_image_url),
         )
         setattr(obj, "top_text", obj.top_text)
         return super().from_orm(obj)
