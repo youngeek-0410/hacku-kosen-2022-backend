@@ -187,6 +187,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetImageMessagesResponse'  
+                
+  /api/projects/{project_id}/publish:
+    post:
+      tags:
+        - project
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishProjectResponse' 
+        '400':
+          description: |
+           公開設定が失敗した時。具体的には以下のケース。
+           - top_text, top_image, spotify_music が登録されていない
+           - text_message, image_message がそれぞれ5件未満の時
+           
+          
 components:
   schemas:
     CreateProjectRequest:
@@ -223,6 +248,9 @@ components:
           description: デジタル色紙を渡す相手の名前
           maxLength: 36
           example: 山田 太郎
+        is_publish:
+          type: boolean
+          description: Projectが公開されたかどうか
         spotify_music:
           $ref: "#/components/schemas/SpotifyMusic"
         top_text:
@@ -412,3 +440,11 @@ components:
          type: string
          description: 閲覧面ページの一番上に表示する画像。他の画像とは独立して表示される。
          example: "https://example.com/image"
+    PublishProjectResponse:
+      type: object
+      properties:
+        publication_url:
+          type: string
+          description: Projectの完成サイトのURL
+          example: "https://cloveeee.site/{project_id}"
+        
