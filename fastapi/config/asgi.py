@@ -50,7 +50,7 @@ fastapi_app = FastAPI(
 if not settings.DEBUG:
     fastapi_app.add_middleware(
         AuthorizerMiddleware,
-        public_paths=["^/docs*", "/openapi.json", "^/redoc*"],
+        public_paths=["^/docs*", "/openapi.json", "^/redoc*", "^/django*"],
         key_pattern="API_KEY_",
     )
     fastapi_app.add_middleware(
