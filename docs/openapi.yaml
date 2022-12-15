@@ -342,42 +342,6 @@ components:
           type: string
           description: 楽曲を識別するURI
           example: "uri:ljadjoihjgsadih"
-        name:
-          type: string
-          description: 楽曲名
-          example: ジョジョ~その血の運命~
-        external_url:
-          type: string
-          description: SpotifyページへのURL
-          example: https://spotify.com/...
-        preview_url:
-          type: string
-          description: サンプル30秒の音声データのURL
-          example: https://spotify.com/...
-        artist:
-          type: object
-          description: アーティスト情報
-          properties:
-            name:
-              type: string
-              description: アーティスト名
-              example: 富永TOMMY弘明
-            external_url:
-              type: string
-              description: SpotifyページへのURL
-              example: https://spotify.com/...
-        album:
-          type: object
-          description: アルバム情報
-          properties:
-            name:
-              type: string
-              description: アルバム名
-              example: ジョジョ~その血の運命~
-            image_url:
-              type: string
-              description: カバー画像のURL
-              example: https://spotify.com/...
     GetTextMessagesResponse:
       type: object
       properties:
