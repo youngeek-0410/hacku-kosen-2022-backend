@@ -5,11 +5,13 @@ from app.schemas import (
     ReadProjectSchema,
     CreateProjectTopTextSchema,
     CreateProjectTopImageSchema,
+    SpotifyMusicSchema,
 )
 
 from fastapi import APIRouter, Request, Response
 
 project_router = APIRouter()
+spotify_music_router = APIRouter()
 
 
 @project_router.get("/{project_id}", response_model=ReadProjectSchema)
@@ -40,6 +42,18 @@ async def create_top_image(
         schema: CreateProjectTopImageSchema,
 ) -> None:
     await ProjectAPI.put_top_image(request, project_id, schema)
+
+
+@spotify_music_router.put(
+    "/{project_id}/spotify_music",
+    response_class=Response,
+)
+async def create_spotify_music(
+        request: Request,
+        project_id: str,
+        schema: SpotifyMusicSchema,
+) -> None:
+    await ProjectAPI.put_spotify_uri(request, project_id, schema)
 
 
 @project_router.post(
