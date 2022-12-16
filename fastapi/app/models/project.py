@@ -9,8 +9,6 @@ from .message import Message, MessageImage
 def get_default_spotify_uri() -> str:
     spotify_uri_candidates = [
         "spotify:album:6uqewERWZ1vzfCcin1zFIp",
-        "spotify:album:2ys3daPjlHkDZqN3MuKXec",
-        "spotify:album:1xhO0GSoezdPJcSuNe1ySv",
     ]
     return random.choice(spotify_uri_candidates)
 
