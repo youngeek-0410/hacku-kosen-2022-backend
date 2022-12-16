@@ -6,6 +6,15 @@ from .base import TimestampModelMixin
 from .message import Message, MessageImage
 
 
+def get_default_spotify_uri() -> str:
+    spotify_uri_candidates = [
+        "spotify:album:6uqewERWZ1vzfCcin1zFIp",
+        "spotify:album:2ys3daPjlHkDZqN3MuKXec",
+        "spotify:album:1xhO0GSoezdPJcSuNe1ySv",
+    ]
+    return random.choice(spotify_uri_candidates)
+
+
 class Project(TimestampModelMixin):
     MAX_LENGTH_ID = 32
     DEFAULT_LENGTH_ID = 7
@@ -21,10 +30,8 @@ class Project(TimestampModelMixin):
     top_image_url = models.URLField(max_length=MAX_LENGTH_URL, default="")
 
     MAX_LENGTH_URI = 256
-    # TODO: default_spotify_uriの値を追加する(5個くらい?)
-    DEFAULT_SPOTIFY_URI = ["spotify:album:6uqewERWZ1vzfCcin1zFIp"]
     spotify_uri = models.CharField(
-        default=random.choice(DEFAULT_SPOTIFY_URI), max_length=MAX_LENGTH_URI
+        default=get_default_spotify_uri, max_length=MAX_LENGTH_URI
     )
 
     def __str__(self) -> str:
