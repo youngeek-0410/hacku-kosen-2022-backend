@@ -96,3 +96,7 @@ class ProjectAPI:
             **schema.dict(), id=generate_base58_id(Project.DEFAULT_LENGTH_ID)
         )
         return project
+
+    @classmethod
+    async def get_all_project_id(cls, request: Request) -> list:
+        return [project.id for project in Project.objects.all()]

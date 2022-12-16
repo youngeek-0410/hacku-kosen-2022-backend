@@ -60,3 +60,14 @@ class ReadProjectSchema(BaseModel):
 
 class CreateProjectSchema(BaseModel):
     receiver_name: str
+
+
+class AllProjectsIdSchema(BaseModel):
+    project_ids: list[str]
+
+    class Config:
+        orm_mode = True
+
+    @classmethod
+    def from_orm(cls, objs: list) -> "AllProjectsIdSchema":  # type: ignore
+        return cls(project_ids=[id for id in objs])

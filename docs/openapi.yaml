@@ -210,8 +210,18 @@ paths:
            公開設定が失敗した時。具体的には以下のケース。
            - top_text, top_image, spotify_music が登録されていない
            - text_message, image_message がそれぞれ5件未満の時
-           
-          
+  /api/projects/all_id/:
+    get:
+      tags:
+        - project
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllProjectIdResponse'
+
 components:
   schemas:
     CreateProjectRequest:
@@ -420,3 +430,12 @@ components:
           type: string
           description: Projectの完成サイトのURL
           example: "https://cloveeee.site/{project_id}"
+    GetAllProjectIdResponse:
+      type: object
+      properties:
+        project_ids:
+          type: array
+          items:
+            type: string
+            description: プロジェクトのID
+            example: a38ioje

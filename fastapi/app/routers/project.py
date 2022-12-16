@@ -1,3 +1,5 @@
+import time
+
 from app.api import ProjectAPI
 from app.models import Project
 from app.schemas import (
@@ -6,6 +8,7 @@ from app.schemas import (
     CreateProjectTopTextSchema,
     CreateProjectTopImageSchema,
     SpotifyMusicSchema,
+    AllProjectsIdSchema,
 )
 
 from fastapi import APIRouter, Request, Response
@@ -63,3 +66,11 @@ async def create_spotify_music(
 )
 async def create(request: Request, schema: CreateProjectSchema) -> Project:
     return await ProjectAPI.create(request, schema)
+
+
+@project_router.get(
+    "/all_id/",
+    response_model=AllProjectsIdSchema,
+)
+async def get(request: Request) -> list:
+    return await ProjectAPI.get_all_project_id(request)
