@@ -22,6 +22,9 @@ django-psdb-engine = "^1.0.6"
 django-storages = "^1.13.1"
 boto3 = "^1.26.27"
 fastapi-key-auth = "^0.8.0"
+numpy = "^1.23.5"
+opencv-python = "^4.6.0.66"
+opencv-contrib-python = "^4.6.0.66"
 
 [tool.poetry.group.dev.dependencies]
 black = {version = "^22.10.0", allow-prereleases = true}

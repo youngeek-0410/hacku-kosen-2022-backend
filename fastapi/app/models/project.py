@@ -15,6 +15,10 @@ def get_default_spotify_uri() -> str:
     return random.choice(spotify_uri_candidates)
 
 
+def upload_to_top_image(instance: "Project", filename: str) -> str:
+    return f"{instance.id}/{filename}"
+
+
 class Project(TimestampModelMixin):
     MAX_LENGTH_ID = 32
     DEFAULT_LENGTH_ID = 7
@@ -26,8 +30,7 @@ class Project(TimestampModelMixin):
     MAX_LENGTH_TOP_TEXT = 32
     top_text = models.CharField(max_length=MAX_LENGTH_TOP_TEXT, default="")
 
-    MAX_LENGTH_URL = 256
-    top_image_url = models.URLField(max_length=MAX_LENGTH_URL, default="")
+    top_image = models.ImageField(upload_to=upload_to_top_image, default=None, null=True)
 
     MAX_LENGTH_URI = 256
     spotify_uri = models.CharField(
