@@ -259,12 +259,21 @@ components:
           maxLength: 36
           example: "3年間お疲れ様でした！"
         top_image:
-         type: object
-         description: 閲覧面ページの一番上に表示する画像。他の画像とは独立して表示される。
-         properties:
-           url:
-             type: string
-             example: "https://example.com/image"
+          type: object
+          description: 閲覧面ページの一番上に表示する画像。他の画像とは独立して表示される。
+          properties:
+            url:
+              type: string
+              description: 画像のURL
+              example: https://
+            width:
+              type: integer
+              description: 画像の幅(px)
+              example: 1200
+            height:
+              type: integer
+              description: 画像の高さ(px)
+              example: 600
         text_messages:
           type: object
           properties:
@@ -400,10 +409,10 @@ components:
     RegisterTopImageRequest:
       type: object
       properties:
-        top_image_url:
-         type: string
-         description: 閲覧面ページの一番上に表示する画像。他の画像とは独立して表示される。
-         example: "https://example.com/image"
+        image:
+          type: string
+          description: 閲覧面ページの一番上に表示する画像をBase64でエンコードした文字列
+          example: BASE64エンコードした文字列くん
     PublishProjectResponse:
       type: object
       properties:
@@ -411,4 +420,3 @@ components:
           type: string
           description: Projectの完成サイトのURL
           example: "https://cloveeee.site/{project_id}"
-        
