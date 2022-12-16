@@ -1,4 +1,5 @@
 from django.db import models
+import random
 
 from .base import TimestampModelMixin
 from .message import Message, MessageImage
@@ -19,7 +20,9 @@ class Project(TimestampModelMixin):
     top_image_url = models.URLField(max_length=MAX_LENGTH_URL)
 
     MAX_LENGTH_URI = 256
-    spotify_uri = models.CharField(max_length=MAX_LENGTH_URI)
+    # TODO: default_spotify_uriの値を追加する(5個くらい?)
+    DEFAULT_SPOTIFY_URI = ["spotify:album:6uqewERWZ1vzfCcin1zFIp"]
+    spotify_uri = models.CharField(default=random.choice(DEFAULT_SPOTIFY_URI), max_length=MAX_LENGTH_URI)
 
     def __str__(self) -> str:
         return f"Project for {self.receiver_name} [{self.id}]"
