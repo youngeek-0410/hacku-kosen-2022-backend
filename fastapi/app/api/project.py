@@ -6,6 +6,7 @@ from app.schemas import (
     CreateProjectSchema,
     CreateProjectTopTextSchema,
     CreateProjectTopImageSchema,
+    SpotifyMusicSchema,
 )
 from asgiref.sync import sync_to_async
 from config.exceptions import NotFoundException
@@ -35,7 +36,6 @@ class ProjectAPI:
             raise NotFoundException("Project not found.")
 
         # FIXME: @propertyを使って出来たら嬉しい
-        setattr(project, "spotify_music", await project.get_spotify_music())
         setattr(
             project,
             "text_messages",
@@ -74,6 +74,20 @@ class ProjectAPI:
             raise NotFoundException("Project not found.")
 
         project.top_image_url = schema.top_image_url
+        await sync_to_async(project.save)()
+
+    @classmethod
+    async def put_spotify_uri(
+            cls,
+            request: Request,
+            id: str,
+            schema: SpotifyMusicSchema,
+    ) -> None:
+        project = await Project.objects.filter(id=id).afirst()
+        if not project:
+            raise NotFoundException("Project not found.")
+
+        project.spotify_uri = schema.uri
         await sync_to_async(project.save)()
 
     @classmethod

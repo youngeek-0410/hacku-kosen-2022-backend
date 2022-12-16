@@ -10,6 +10,7 @@ class ProjectAdmin(admin.ModelAdmin):
         "receiver_name",
         "top_text",
         "top_image_url",
+        "spotify_uri",
         "created_at",
         "updated_at",
     )

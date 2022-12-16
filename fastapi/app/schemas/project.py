@@ -4,7 +4,6 @@ from pydantic import BaseModel, Field
 
 from ..models import Project
 from .message import ImageMessagesSchema, TextMessagesSchema
-from .spotify import SpotifyMusicSchema
 
 
 class CreateProjectTopTextSchema(BaseModel):
@@ -17,6 +16,10 @@ class CreateProjectTopImageSchema(BaseModel):
 
 class ReadProjectTopImageSchema(BaseModel):
     url: str
+
+
+class SpotifyMusicSchema(BaseModel):
+    uri: str
 
 
 class ReadProjectSchema(BaseModel):
@@ -39,6 +42,12 @@ class ReadProjectSchema(BaseModel):
     def from_orm(cls, obj: Project | None) -> Optional["ReadProjectSchema"]:  # type: ignore
         if type(obj) is not Project:
             return None
+
+        setattr(
+            obj,
+            "spotify_music",
+            SpotifyMusicSchema(uri=obj.spotify_uri),
+        )
 
         setattr(
             obj,
