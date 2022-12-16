@@ -2,7 +2,6 @@ from django.db import models
 
 from .base import TimestampModelMixin
 from .message import Message, MessageImage
-from .spotify import SpotifyMusic
 
 
 class Project(TimestampModelMixin):
@@ -14,16 +13,16 @@ class Project(TimestampModelMixin):
     receiver_name = models.CharField(max_length=MAX_LENGTH_RECEIVER_NAME)
 
     MAX_LENGTH_TOP_TEXT = 32
-    top_text = models.CharField(default="", max_length=MAX_LENGTH_TOP_TEXT)
+    top_text = models.CharField(max_length=MAX_LENGTH_TOP_TEXT)
 
     MAX_LENGTH_URL = 256
-    top_image_url = models.URLField(default="", max_length=MAX_LENGTH_URL)
+    top_image_url = models.URLField(max_length=MAX_LENGTH_URL)
+
+    MAX_LENGTH_URI = 256
+    spotify_uri = models.CharField(max_length=MAX_LENGTH_URI)
 
     def __str__(self) -> str:
         return f"Project for {self.receiver_name} [{self.id}]"
-
-    async def get_spotify_music(self) -> SpotifyMusic | None:
-        return await SpotifyMusic.objects.filter(project=self).afirst()
 
     async def get_text_messages(self, limit: int) -> list["Message"]:
         return [
