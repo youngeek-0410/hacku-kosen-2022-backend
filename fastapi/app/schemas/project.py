@@ -25,6 +25,7 @@ class SpotifyMusicSchema(BaseModel):
 class ReadProjectSchema(BaseModel):
     id: str = Field(..., max_length=Project.MAX_LENGTH_ID, alias="project_id")
     receiver_name: str = Field(..., max_length=Project.MAX_LENGTH_RECEIVER_NAME)
+    is_publish: bool
 
     spotify_music: SpotifyMusicSchema | None = None
 
@@ -42,6 +43,7 @@ class ReadProjectSchema(BaseModel):
     def from_orm(cls, obj: Project | None) -> Optional["ReadProjectSchema"]:  # type: ignore
         if type(obj) is not Project:
             return None
+        setattr(obj, "is_publish", obj.is_publish)
 
         setattr(
             obj,
@@ -71,3 +73,14 @@ class AllProjectsIdSchema(BaseModel):
     @classmethod
     def from_orm(cls, objs: list) -> "AllProjectsIdSchema":  # type: ignore
         return cls(project_ids=[id for id in objs])
+
+
+class PublicationUrlSchema(BaseModel):
+    publication_url: str
+
+    class Config:
+        orm_mode = True
+
+    @classmethod
+    def from_orm(cls, project_id: str) -> "PublicationUrlSchema":  # type: ignore
+        return cls(publication_url=f"https://cloveeee.site/{project_id}")

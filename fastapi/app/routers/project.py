@@ -9,6 +9,7 @@ from app.schemas import (
     CreateProjectTopImageSchema,
     SpotifyMusicSchema,
     AllProjectsIdSchema,
+    PublicationUrlSchema,
 )
 
 from fastapi import APIRouter, Request, Response
@@ -74,3 +75,12 @@ async def create(request: Request, schema: CreateProjectSchema) -> Project:
 )
 async def get(request: Request) -> list:
     return await ProjectAPI.get_all_project_id(request)
+
+
+@project_router.post(
+    "/{project_id}/publish",
+    response_model=PublicationUrlSchema,
+)
+async def create(request: Request, project_id: str) -> str:
+    await ProjectAPI.post_publication_url(request, project_id)
+    return project_id

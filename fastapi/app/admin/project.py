@@ -8,6 +8,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "receiver_name",
+        "is_publish",
         "top_text",
         "top_image_url",
         "spotify_uri",

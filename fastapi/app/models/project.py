@@ -21,6 +21,8 @@ class Project(TimestampModelMixin):
     MAX_LENGTH_RECEIVER_NAME = 32
     receiver_name = models.CharField(max_length=MAX_LENGTH_RECEIVER_NAME)
 
+    is_publish = models.BooleanField(default=False)
+
     MAX_LENGTH_TOP_TEXT = 32
     top_text = models.CharField(max_length=MAX_LENGTH_TOP_TEXT, default="")
 
@@ -43,6 +45,9 @@ class Project(TimestampModelMixin):
             .all()
         ][:limit]
 
+    async def get_text_message_count(self) -> int:
+        return Message.objects.all().count()
+
     async def get_image_messages(self, limit: int) -> list["MessageImage"]:
         return [
             obj
@@ -50,3 +55,6 @@ class Project(TimestampModelMixin):
             .order_by("-created_at")
             .all()
         ][:limit]
+
+    async def get_image_message_count(self) -> int:
+        return MessageImage.objects.count()
