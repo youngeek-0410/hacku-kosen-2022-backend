@@ -85,11 +85,9 @@ class ProjectAPI:
         except binascii.Error:
             raise BadRequestException("Invalid base64 string")
 
-        jpg = np.frombuffer(image_binary, dtype=np.uint8)
-        image = Image.fromarray(jpg).convert('RGB')
+        image = Image.open(io.BytesIO(image_binary)).convert("RGB")
         image_io = io.BytesIO()
-        image_name = "top_image.jpg"
-        # TODO: saveするときにエラー出るから直したい
+        image_name = "top_image.jpeg"
         image.save(image_io, format="JPEG")
         image_file = InMemoryUploadedFile(image_io, field_name=None, name=image_name,
                                           content_type="image/jpeg", size=image_io.getbuffer().nbytes,
