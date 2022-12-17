@@ -50,17 +50,7 @@ class ReadProjectSchema(BaseModel):
             "spotify_music",
             SpotifyMusicSchema(uri=obj.spotify_uri),
         )
-        if obj.top_image is None:
-            setattr(
-                obj,
-                "top_image",
-                ReadProjectTopImageSchema(
-                    url="",
-                    height=0,
-                    width=0,
-                ),
-            )
-        else:
+        if obj.top_image:
             setattr(
                 obj,
                 "top_image",
@@ -68,6 +58,16 @@ class ReadProjectSchema(BaseModel):
                     url=obj.top_image.url,
                     height=obj.top_image.height,
                     width=obj.top_image.width,
+                ),
+            )
+        else:
+            setattr(
+                obj,
+                "top_image",
+                ReadProjectTopImageSchema(
+                    url="",
+                    height=0,
+                    width=0,
                 ),
             )
         setattr(obj, "top_text", obj.top_text)
