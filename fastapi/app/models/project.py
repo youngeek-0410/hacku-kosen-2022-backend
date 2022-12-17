@@ -15,10 +15,6 @@ def get_default_spotify_uri() -> str:
     return random.choice(spotify_uri_candidates)
 
 
-def upload_to_top_image(instance: "Project", filename: str) -> str:
-    return f"{instance.id}/{filename}"
-
-
 class Project(TimestampModelMixin):
     MAX_LENGTH_ID = 32
     DEFAULT_LENGTH_ID = 7
@@ -55,3 +51,7 @@ class Project(TimestampModelMixin):
             .order_by("-created_at")
             .all()
         ][:limit]
+
+
+def upload_to_top_image(filename: str, instance=Project) -> str:
+    return f"{instance.id}/{filename}"

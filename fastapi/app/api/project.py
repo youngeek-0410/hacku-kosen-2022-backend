@@ -85,6 +85,7 @@ class ProjectAPI:
         except binascii.Error:
             raise BadRequestException("Invalid base64 string")
 
+        # FIXME: 簡略化する
         image = Image.open(io.BytesIO(image_binary)).convert("RGB")
         image_io = io.BytesIO()
         image_name = "top_image.jpeg"
