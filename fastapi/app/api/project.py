@@ -25,11 +25,11 @@ def generate_base58_id(length: int) -> str:
 class ProjectAPI:
     @classmethod
     async def get(
-        cls,
-        request: Request,
-        id: str,
-        text_messages_limit: int,
-        image_messages_limit: int,
+            cls,
+            request: Request,
+            id: str,
+            text_messages_limit: int,
+            image_messages_limit: int,
     ) -> Project:
         project = await Project.objects.filter(id=id).afirst()
         if not project:
@@ -101,6 +101,9 @@ class ProjectAPI:
     async def get_all_project_id(cls, request: Request) -> list:
         projects_id = []
         for project in Project.objects.all():
-            if project.receiver_name and project.top_text and project.top_image_url:
+            if (project.receiver_name and
+                    project.top_text and
+                    project.top_image_url and
+                    project.spotify_uri):
                 projects_id.append(project.id)
         return projects_id
