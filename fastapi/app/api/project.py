@@ -103,20 +103,13 @@ class ProjectAPI:
         return [project.id for project in Project.objects.all()]
 
     @classmethod
-    async def post_publication_url(cls, request: Request, project_id: str) -> bool:
+    async def publish(cls, request: Request, project_id: str) -> None:
         project = await Project.objects.filter(id=project_id).afirst()
         if not project:
             raise NotFoundException("Project not found")
 
-        text_message_count = await project.get_text_message_count()
-        image_message_count = await project.get_image_message_count()
-
         # Ensure that the project meets the minimum requirements for publication
-        if (project.top_text and
-                project.top_image_url and
-                project.spotify_uri and
-                text_message_count >= 5 and
-                image_message_count >= 5):
+        if await project.can_publish:
             project.is_publish = True
         else:
             project.is_publish = False

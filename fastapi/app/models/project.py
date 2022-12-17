@@ -57,4 +57,18 @@ class Project(TimestampModelMixin):
         ][:limit]
 
     async def get_image_message_count(self) -> int:
-        return MessageImage.objects.count()
+        return MessageImage.objects.all().count()
+
+    @property
+    async def can_publish(self):
+        text_message_count = await self.get_text_message_count()
+        image_message_count = await self.get_image_message_count()
+        print(text_message_count, image_message_count)
+        if (self.top_text and
+                self.top_image_url and
+                self.spotify_uri and
+                text_message_count >= 5 and
+                image_message_count >= 5):
+            return True
+        else:
+            return False

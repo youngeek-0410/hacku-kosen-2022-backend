@@ -82,5 +82,5 @@ async def get(request: Request) -> list:
     response_model=PublicationUrlSchema,
 )
 async def create(request: Request, project_id: str) -> str:
-    await ProjectAPI.post_publication_url(request, project_id)
+    await ProjectAPI.publish(request, project_id)
     return project_id
