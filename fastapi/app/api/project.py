@@ -99,4 +99,8 @@ class ProjectAPI:
 
     @classmethod
     async def get_all_project_id(cls, request: Request) -> list:
-        return [project.id for project in Project.objects.all()]
+        projects_id = []
+        for project in Project.objects.all():
+            if project.receiver_name and project.top_text and project.top_image_url:
+                projects_id.append(project.id)
+        return projects_id
