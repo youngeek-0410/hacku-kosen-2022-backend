@@ -9,7 +9,7 @@ class ProjectAdmin(admin.ModelAdmin):
         "id",
         "receiver_name",
         "top_text",
-        "top_image_url",
+        "top_image",
         "spotify_uri",
         "created_at",
         "updated_at",

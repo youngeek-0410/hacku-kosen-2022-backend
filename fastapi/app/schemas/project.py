@@ -11,11 +11,13 @@ class CreateProjectTopTextSchema(BaseModel):
 
 
 class CreateProjectTopImageSchema(BaseModel):
-    top_image_url: str
+    image: str
 
 
 class ReadProjectTopImageSchema(BaseModel):
     url: str
+    height: int
+    width: int
 
 
 class SpotifyMusicSchema(BaseModel):
@@ -48,12 +50,26 @@ class ReadProjectSchema(BaseModel):
             "spotify_music",
             SpotifyMusicSchema(uri=obj.spotify_uri),
         )
-
-        setattr(
-            obj,
-            "top_image",
-            ReadProjectTopImageSchema(url=obj.top_image_url),
-        )
+        if obj.top_image:
+            setattr(
+                obj,
+                "top_image",
+                ReadProjectTopImageSchema(
+                    url=obj.top_image.url,
+                    height=obj.top_image.height,
+                    width=obj.top_image.width,
+                ),
+            )
+        else:
+            setattr(
+                obj,
+                "top_image",
+                ReadProjectTopImageSchema(
+                    url="",
+                    height=0,
+                    width=0,
+                ),
+            )
         setattr(obj, "top_text", obj.top_text)
         return super().from_orm(obj)
 

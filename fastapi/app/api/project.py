@@ -1,4 +1,9 @@
+import base64
+import binascii
 import random
+import io
+from PIL import Image
+import numpy as np
 from logging import getLogger
 
 from app.models import Project
@@ -9,7 +14,9 @@ from app.schemas import (
     SpotifyMusicSchema,
 )
 from asgiref.sync import sync_to_async
-from config.exceptions import NotFoundException
+from config.exceptions import NotFoundException, BadRequestException
+from django.core.files.images import ImageFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from fastapi import Request
 
@@ -73,7 +80,20 @@ class ProjectAPI:
         if not project:
             raise NotFoundException("Project not found.")
 
-        project.top_image_url = schema.top_image_url
+        try:
+            image_binary = base64.b64decode(schema.image)
+        except binascii.Error:
+            raise BadRequestException("Invalid base64 string")
+
+        # FIXME: 簡略化する
+        image = Image.open(io.BytesIO(image_binary)).convert("RGB")
+        image_io = io.BytesIO()
+        image_name = "top_image.jpeg"
+        image.save(image_io, format="JPEG")
+        image_file = InMemoryUploadedFile(image_io, field_name=None, name=image_name,
+                                          content_type="image/jpeg", size=image_io.getbuffer().nbytes,
+                                          charset=None)
+        project.top_image = image_file
         await sync_to_async(project.save)()
 
     @classmethod

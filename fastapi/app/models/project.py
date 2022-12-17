@@ -24,8 +24,7 @@ class Project(TimestampModelMixin):
     MAX_LENGTH_TOP_TEXT = 32
     top_text = models.CharField(max_length=MAX_LENGTH_TOP_TEXT, default="")
 
-    MAX_LENGTH_URL = 256
-    top_image_url = models.URLField(max_length=MAX_LENGTH_URL, default="")
+    top_image = models.ImageField(upload_to=upload_to_top_image, default=None, null=True)
 
     MAX_LENGTH_URI = 256
     spotify_uri = models.CharField(
@@ -50,3 +49,7 @@ class Project(TimestampModelMixin):
             .order_by("-created_at")
             .all()
         ][:limit]
+
+
+def upload_to_top_image(filename: str, instance=Project) -> str:
+    return f"{instance.id}/{filename}"
